@@ -29,24 +29,18 @@ SERVICII = [
 
   {
     'id': 5,
-    'title' : "Coafura",
-    'price' : "110 RON"
-  },
-
-  {
-    'id': 6,
     'title' : "Tratamente faciale/ corporale",
     'price' : "110 RON"
   },
 
   {
-    'id': 7,
+    'id': 6,
     'title' : "Epilare",
     'price' : "120 RON"
   },
 
   {
-    'id': 8,
+    'id': 7,
     'title' : "Bronzare artificiala",
     'price' : "90 RON"
   },

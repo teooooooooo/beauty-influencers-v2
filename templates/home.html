@@ -10,26 +10,35 @@
         height: 360px;
         width: 100%;
         object-fit: cover;
+        margin-bottom: 16px;
       }
     </style> 
   </head>
   <body>
+    {% include 'nav.html' %}
+    <img class = "img-fluid" id = "poza" src = "https://db-sql-project-2--pirvanteodorama.repl.co/static/poza.jpeg"  height = "320", height: "400" >
     <div class = "container"> 
     <h1 class = "text-center mt-2 mb-2" >Beauty Influencers</h1>
-    <img class = "img-fluid" id = "poza" src = "https://db-sql-project-2--pirvanteodorama.repl.co/static/poza.jpeg" height = "320" >
-    <h2 class = "text-center mt-2 mb-4">Programeaza-te la salonul nostru BEAUTY INFLUENCERS chiar astazi!</h2>
+    <div class = "row" style = "margin-bottom : 16px">
+      <div class = "col-md-6">
     <p class = "lead">
-      Beauty Influencers este locul in care visele tale devin realitate. Te asteapta o echipa de profesionisti, dedicati meseriei lor al caror singur scop este ca tu sa te simti frumoasa si plina de incredere.</p>
-    <h2 class = "text-center mt-2 mb-4">Programeaza-te la unul din serviciile noastre</h2>
+      Beauty Influencers este locul in care visele tale devin realitate. Te asteapta o echipa de profesionisti, dedicati meseriei lor al caror singur scop este ca tu sa te simti frumoasa si plina de incredere. Alaturi de personalul nostru calificat, te poti bucura de multiple servicii precum: machiaj, manichiura, pedichiura, tratamente faciale sau corporale si multe altele. Be different, be reckless!</p>
+    </div>
+    <div class = " d-none d-md-block col-md-6">    
+    <img src = "/static/sus.jpeg" style ="height:320px; border-radius: 4px;">
+    </div>
+    </div>
+    <h2 class = "text-center mt-2 mb-4">Programeaza-te la unul dintre serviciile noastre</h2>
     <div>
       {% for serviciu in servicii %}
-        {% include 'jobitem.html' %}
+      {% include 'jobitem.html' %}
       {% endfor %}
     </div>
+
     <div class = "text-center">
-      <button class = "btn btn-primary btn-lg">Contacteaza-ne</button>
-      <p class = "mt-4">Copyright 2023, BeautyCenter</p>
+      <a href="mailto: Beauty@Influencers.com" type="button" class = "btn btn-primary btn-lg" style = " border-color: black; color: black; background: white">Contacteaza-ne</a>
     </div>
     </div>
+    {% include 'footer.html' %}
   </body>
 </html>
