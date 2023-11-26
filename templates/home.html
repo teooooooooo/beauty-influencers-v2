@@ -30,9 +30,22 @@
     </div>
     <h2 class = "text-center mt-2 mb-4">Programeaza-te la unul dintre serviciile noastre</h2>
     <div>
-      {% for serviciu in servicii %}
-      {% include 'jobitem.html' %}
-      {% endfor %}
+      <table>
+  <tr>
+    <th>Nume serviciu</th>
+    <th>Descriere</th>
+    <th>Pret</th>
+  </tr>
+  {% for serviciu in servicii %}
+  <tr>
+    <td>{{ serviciu.nume_serviciu }}</td>
+    <td>{{ serviciu.descriere }}</td>
+    <td>{{ serviciu.tarif }}</td>
+  </tr>
+  </tr>
+  {% endfor %}
+</table>
+      
     </div>
 
     <div class = "text-center">

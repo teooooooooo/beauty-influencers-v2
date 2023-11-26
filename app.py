@@ -1,62 +1,60 @@
 from flask import Flask, render_template, jsonify
+from sqlalchemy import text, create_engine
 
 app = Flask(__name__)
 
-SERVICII = [
-  {
-    'id': 1,
-    'title' : "Manichiura",
-    'price' : "70 RON"
-  },
+db_connection_string = "mysql+pymysql://76ydd3a6dtxdgplnvhzh:pscale_pw_9lfYI1Kk9wOonkGX9Fck9byuRMUhLDMxhvYeyrxAs4f@aws.connect.psdb.cloud/beautyinfluencers?charset=utf8mb4"
+
+engine = create_engine(
+  db_connection_string,
+  connect_args={
+    "ssl":{
+      "ssl_ca" : "/etc/ssl/cert.pem"
+    } 
+  })
+
+def debug_servicii_from_db():
+  try:
+      with engine.connect() as conn:
+          result = conn.execute(text("select * from servicii"))
+          rows = result.fetchall()
+          print("Number of rows:", len(rows))
+
+          for i, row in enumerate(rows):
+              print(f"Row {i}: Type - {type(row)}")
+              print(row)
+  except Exception as e:
+      print(f"An error occurred: {e}")
+
+debug_servicii_from_db()
+
+def load_servicii_from_db():
+  servicii = []
+  try:
+      with engine.connect() as conn:
+          result = conn.execute(text("select * from servicii"))
+          servicii = [row._asdict() for row in result.fetchall()]
+  except Exception as e:
+      print(f"An error occurred: {e}")
+      # Handle the exception as needed
+
+  # Debug printing of servicii
+  print(servicii)
   
-  {
-    'id': 2,
-    'title' : "Pedichiura",
-    'price' : "60 RON"
-  },
+  return servicii
+
   
-  {
-    'id': 3,
-    'title' : "Machiaj",
-    'price' : "130 RON"
-  },
-
-  {
-    'id': 4,
-    'title' : "Coafura",
-    'price' : "110 RON"
-  },
-
-  {
-    'id': 5,
-    'title' : "Tratamente faciale/ corporale",
-    'price' : "110 RON"
-  },
-
-  {
-    'id': 6,
-    'title' : "Epilare",
-    'price' : "120 RON"
-  },
-
-  {
-    'id': 7,
-    'title' : "Bronzare artificiala",
-    'price' : "90 RON"
-  },
-]
-
 @app.route("/")
 def helo_tello():
-  return render_template('home.html', servicii = SERVICII, company_name = 'Beauty Influencers')
-
-@app.route("/api/servicii")
-
-def list_jobs():
-  return jsonify(SERVICII)
+  servicii = load_servicii_from_db()
+  return render_template('home.html', servicii = servicii, company_name = 'Beauty Influencers')
 
 if __name__ == "__main__":
   app.run(
     host="0.0.0.0",
     debug=True
   )
+
+# @app.route("/api/sevicii")
+# def list_jobs():
+#   return jsonify(servicii)
